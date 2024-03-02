@@ -1,0 +1,22 @@
+{
+    "successors" : {
+        "function1" : [
+            "function2", "function4", "function12"
+        ],
+        "function2":[
+                "function3", "function5"
+        ],
+        "function3":[
+                "function5", "function6", "function4"
+        ],
+        "function4":[
+                "function7", "function8"
+        ],
+        "function5":[
+                "function9", "function10", "function11"
+        ],
+        "function12":[
+            "function13", "function14", "function15"
+        ]
+    }
+}
