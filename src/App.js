@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import { useEffect } from "react";
 import ReactFlow , {
   MiniMap,
   Controls,
@@ -13,6 +12,7 @@ from 'reactflow'
 import 'reactflow/dist/style.css';
 
 import data from './data.json'
+import {generateNodePositions} from './AppUtil'
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -28,7 +28,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 
 const nodeDefaults = {
@@ -78,47 +77,6 @@ function generateEdges(){
     }
   }
   return res;
-}
-
-function generateNodePositions(edges){
-  var res = new Map();
-  var firstNode = Object.keys(edges)[0];
-  generateNodePositionsUtil(edges, res, firstNode);
-  return res;
-}
-
-function generateNodePositionsUtil(edges, res, node){
-  const xWidth = 200;
-  const yWidth = 100;
-  if(edges[node] == null){
-    return;
-  }
-  if(res.size == 0){
-    var point = {x: 0, y:0};
-    res.set(node, point);
-  }
-  var n = edges[node].length;
-  var mid = Math.floor(n/2);
-  for(let i=0 ; i < n ; i++){
-    var parentPoint = res.get(node);
-    var tempNode = edges[node][i];
-    if(res.get(tempNode) != null){
-      continue;
-    }
-    if(i == 0){
-      var newPoint = {x: parentPoint.x + xWidth, y: parentPoint.y - (mid * yWidth)};
-      res.set(tempNode, newPoint)
-    }else{
-      if(i < mid){
-        var newPoint = {x: parentPoint.x + xWidth, y: parentPoint.y - ( (mid - i) * yWidth)};
-        res.set(tempNode, newPoint)
-      }else{
-        var newPoint = {x: parentPoint.x + xWidth, y: parentPoint.y + ( (i - mid) * yWidth)};
-        res.set(tempNode, newPoint)
-      }
-    }
-    generateNodePositionsUtil(edges, res, tempNode)
-  }
 }
 
 
