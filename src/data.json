@@ -1,7 +1,7 @@
 {
     "successors" : {
         "function1" : [
-            "function2", "function4"
+            "function2", "function4", "function12"
         ],
         "function2":[
                 "function3", "function5"
